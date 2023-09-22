@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/tomasz/bdd/bdd_data'
-let g:netrw_dirhist_2='/home/tomasz/part/bdd/bdd-data/bdd_data'
-let g:netrw_dirhist_3='/home/tomasz/.pki'
