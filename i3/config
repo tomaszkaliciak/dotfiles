@@ -9,7 +9,7 @@ exec --no-startup-id ~/set_once.sh
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Noto Sans Regular 20
+font pango:Lato Regular 18
 
 # set the mod key to the winkey:
 set $mod Mod4
@@ -262,8 +262,7 @@ bindsym $mod+p exec /usr/local/bin/switch-audio-port
 ## App shortcuts
 bindsym $mod+w exec /usr/bin/firefox
 bindsym $mod+n exec /usr/bin/thunar
-bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
-
+bindsym Print exec flameshot gui
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
@@ -442,7 +441,7 @@ client.urgent		    $urgentred	$urgentred	$white		$purple		$yellowbrown
 #}
 
 
-exec xrandr --dpi 192
+exec xrandr --dpi 100
 
 set $bg #282828
 set $red #cc241d
@@ -455,23 +454,23 @@ set $gray #a89984
 set $darkgray #1d2021
 set $lightgray #bdae93
 
-bar {
-    position bottom
-	status_command i3blocks -c ~/.config/i3/i3blocks.conf    
-	#status_command i3blocks
-    colors {
-        # bar background color
-        background $bg
-        # text color used for blocks that do not have a color specified.
-        statusline $lightgray
-        # workspaces section            
+#bar {
+#    position bottom
+#	#status_command i3blocks -c ~/.config/i3/i3blocks.conf    
+#	#status_command i3blocks
+#    colors {
+#        # bar background color
+#        background $bg
+#        # text color used for blocks that do not have a color specified.
+#        statusline $lightgray
+#        # workspaces section            
         #                    border  backgr. text
-        focused_workspace    $lightgray $lightgray $bg
-        inactive_workspace   $darkgray $darkgray $lightgray
-        active_workspace     $darkgray $darkgray $lightgray
-        urgent_workspace     $red $red $bg
-    }
-}
+#        focused_workspace    $lightgray $lightgray $bg
+#        inactive_workspace   $darkgray $darkgray $lightgray
+#        active_workspace     $darkgray $darkgray $lightgray
+#        urgent_workspace     $red $red $bg
+#    }
+#}
 
 # class                 border|backgr|text|indicator|child_border
 client.focused          $lightgray $lightgray $bg $purple $darkgray
@@ -485,6 +484,8 @@ client.urgent           $red $red $white $red $red
 
 ## rofi bindings fancy application menu (two bindings F9/$mod+d)
 
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
 bindsym $mod+d exec rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
                 
@@ -495,6 +496,7 @@ bindsym F9 exec rofi -modi drun -show drun \
 
 bindsym $mod+t exec rofi -show window \
 		-config ~/.config/rofi/rofidmenu.rasi 
+
 
 bindsym F10 exec rofi -show window \
 		-config ~/.config/rofi/rofidmenu.rasi 
