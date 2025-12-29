@@ -274,7 +274,23 @@ bindsym $mod+p exec /usr/local/bin/switch-audio-port
 ## App shortcuts
 bindsym $mod+w exec /usr/bin/firefox
 bindsym $mod+n exec /usr/bin/thunar
-bindsym Print exec sh -c 'QT_QPA_PLATFORM=xcb QT_AUTO_SCREEN_SCALE_FACTOR=1 flameshot gui'
+
+set $satty satty -f - --initial-tool=arrow --copy-command=wl-copy --actions-on-escape="save-to-clipboard,exit" --brush-smooth-history-size=5 --disable-notifications
+set $printscreen_mode 'printscreen (r:region, f:full, w:window)'
+mode $printscreen_mode {
+    bindsym r exec swaymsg 'mode "default"' && grim -t ppm -g "$(slurp -d)" - | $satty
+    bindsym f exec swaymsg 'mode "default"' && grim -t ppm - | $satty
+    bindsym w exec swaymsg 'mode "default"' && swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -t ppm -g - - | $satty
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+p mode $printscreen_mode
+
+bindsym Print exec grim -g "$(slurp -o -c '#ff0000ff')" - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+
+for_window [app_id="(?i).*satty.*"] floating disable;
+
 
 ##########################################
 # configuration for workspace behaviour: #
@@ -529,6 +545,7 @@ bindsym $mod+d exec qs -c noctalia-shell ipc call launcher toggle
 bindsym F9 exec ~/.config/rofi/launchers/type-4/launcher.sh
 
 ## rofi bindings for window menu (two bindings F10/$mod+t)
+
 
 
 bindsym F10 exec rofi -show window -config ~/.config/rofi/config.rasi 
